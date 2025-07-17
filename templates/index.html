@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Em Tí nè </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="chat-wrapper">
+    <header class="chat-header">
+      <h1>Trò chuyện với Tí</h1>
+      <button id="reset-btn" title="Xoá hội thoại">↺</button>
+    </header>
+
+    <main id="chat-window" class="chat-window"></main>
+
+    <footer class="chat-input-wrapper">
+      <textarea id="chat-input" placeholder="Nhập tin nhắn... (Enter gửi, Shift+Enter xuống dòng)"></textarea>
+      <button id="send-btn">Gửi</button>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='chat.js') }}"></script>
+</body>
+</html>

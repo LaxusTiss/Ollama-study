@@ -1,0 +1,170 @@
+:root {
+  --bg: #1e1e1e;
+  --bg-panel: #2b2b2b;
+  --bg-user: #3c6e71;
+  --bg-ai: #353535;
+  --text: #ffffff;
+  --text-dim: #bbbbbb;
+  --accent: #ffb703;
+  --radius: 8px;
+  --spacing: 12px;
+  --max-width: 720px;
+  --font-body: system-ui, sans-serif;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;              /* nền đen xung quanh ảnh */
+  color: var(--text);
+  font-family: var(--font-body);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;            /* làm gốc cho ::before */
+  overflow: hidden;              /* tránh scroll khi ảnh lớn */
+}
+
+/* Ảnh nền vuông, luôn căn giữa, giữ tỉ lệ 1:1 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vmin;                /* vmin = cạnh nhỏ hơn của viewport → tạo hình vuông */
+  height: 100vmin;
+  background: url('/static/avatar github.jpg') no-repeat center center;
+  background-size: contain;      /* giữ nguyên tỉ lệ, không crop */
+  transform: translate(-50%, -50%);
+  z-index: -1;                   /* nằm sau toàn bộ nội dung */
+}
+
+
+
+.chat-wrapper {
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0;
+}
+
+.chat-header {
+  flex: 0 0 auto;
+  padding: var(--spacing);
+  background: var(--bg-panel);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #444;
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#reset-btn {
+  background: none;
+  border: 1px solid #666;
+  color: var(--text);
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1rem;
+}
+#reset-btn:hover {
+  background: #444;
+}
+
+.chat-window {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+
+.msg {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.95rem;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: var(--bg-user);
+}
+
+.msg.ai {
+  align-self: flex-start;
+  background: var(--bg-ai);
+}
+
+.msg.system {
+  align-self: center;
+  background: transparent;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.typing {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.chat-input-wrapper {
+  flex: 0 0 auto;
+  background: var(--bg-panel);
+  border-top: 1px solid #444;
+  padding: var(--spacing);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing);
+  align-items: end;
+}
+
+#chat-input {
+  width: 100%;
+  min-height: 40px;
+  max-height: 160px;
+  resize: vertical;
+  padding: 8px;
+  background: #121212;
+  color: var(--text);
+  border: 1px solid #555;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+#send-btn {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+#send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .chat-header h1 { font-size: 1rem; }
+  #send-btn { padding: 8px 12px; }
+  .msg { font-size: 0.9rem; }
+}
